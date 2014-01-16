@@ -177,6 +177,8 @@ else
   puts-step "Using Python runtime ($PYTHON_VERSION)"
 fi
 
+FRESH_PYTHON=true
+
 # If Pip isn't up to date:
 if [ "$FRESH_PYTHON" ] || [[ ! $(pip --version) == *$PIP_VERSION* ]]; then
   WORKING_DIR=$(pwd)
@@ -200,6 +202,8 @@ if [ "$FRESH_PYTHON" ] || [[ ! $(pip --version) == *$PIP_VERSION* ]]; then
   bpwatch start install_scons
     puts-step "Installing SCons ($SCONS_VERSION)"
     VENDORED_SCONS="$ROOT_DIR/vendor/scons-$SCONS_VERSION/"
+    if [ ! -d $VENDORED_SCONS ]; then mkdir $VENDORED_SCONS; fi;
+    cd VENDORED_SCONS
     curl $SCONS_PACKAGE -s -o - | tar xzf - -C $VENDORED_SCONS
     cd $WORKING_DIR
 2
