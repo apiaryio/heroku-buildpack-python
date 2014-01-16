@@ -203,10 +203,10 @@ if [ "$FRESH_PYTHON" ] || [[ ! $(pip --version) == *$PIP_VERSION* ]]; then
     puts-step "Installing SCons ($SCONS_VERSION)"
     VENDORED_SCONS="$ROOT_DIR/vendor/scons-$SCONS_VERSION/"
     if [ ! -d $VENDORED_SCONS ]; then mkdir $VENDORED_SCONS; fi;
-    cd VENDORED_SCONS
+    cd $VENDORED_SCONS
     curl $SCONS_PACKAGE -s -o - | tar xzf - -C $VENDORED_SCONS
     cd $WORKING_DIR
-2
+
   bpwatch stop install_pip
   bpwatch stop prepare_environment
   bpwatch stop install_scons
