@@ -205,6 +205,7 @@ if [ "$FRESH_PYTHON" ] || [[ ! $(pip --version) == *$PIP_VERSION* ]]; then
     if [ ! -d $VENDORED_SCONS ]; then mkdir $VENDORED_SCONS; fi;
     cd $VENDORED_SCONS
     curl $SCONS_PACKAGE -s -o - | tar xzf - -C $VENDORED_SCONS
+    python setup.py install &> /dev/null
     cd $WORKING_DIR
 
   bpwatch stop install_pip
