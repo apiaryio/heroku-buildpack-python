@@ -199,18 +199,18 @@ if [ "$FRESH_PYTHON" ] || [[ ! $(pip --version) == *$PIP_VERSION* ]]; then
     python setup.py install &> /dev/null
     cd $WORKING_DIR
 
-  bpwatch start install_scons
-    puts-step "Installing SCons ($SCONS_VERSION)"
-    VENDORED_SCONS="$ROOT_DIR/vendor/scons-$SCONS_VERSION/"
-    if [ ! -d $VENDORED_SCONS ]; then mkdir $VENDORED_SCONS; fi;
-    cd $VENDORED_SCONS
-    curl $SCONS_PACKAGE -s -o - | tar xzf - -C $VENDORED_SCONS
-    python setup.py install
-    cd $WORKING_DIR
+#  bpwatch start install_scons
+#    puts-step "Installing SCons ($SCONS_VERSION)"
+#    VENDORED_SCONS="$ROOT_DIR/vendor/scons-$SCONS_VERSION/"
+#    if [ ! -d $VENDORED_SCONS ]; then mkdir $VENDORED_SCONS; fi;
+#    cd $VENDORED_SCONS
+#    curl $SCONS_PACKAGE -s -o - | tar xzf - -C $VENDORED_SCONS
+#    python setup.py install
+#    cd $WORKING_DIR
 
   bpwatch stop install_pip
   bpwatch stop prepare_environment
-  bpwatch stop install_scons
+#  bpwatch stop install_scons
 fi
 
 set -e
@@ -237,6 +237,7 @@ puts-step "Installing dependencies using Pip ($PIP_VERSION)"
 [ "$FRESH_PYTHON" ] && bpwatch start pip_install_first
 
 /app/.heroku/python/bin/pip install -r requirements.txt --exists-action=w --src=./.heroku/src  | cleanup | indent
+/app/.heroku/python/bin/pip install --egg scons --exists-action=w --src=./.heroku/src  | cleanup | indent
 
 [ ! "$FRESH_PYTHON" ] && bpwatch stop pip_install
 [ "$FRESH_PYTHON" ] && bpwatch stop pip_install_first
