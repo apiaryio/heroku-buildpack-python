@@ -247,6 +247,14 @@ bpwatch start collectstatic
   sub-env $BIN_DIR/steps/collectstatic
 bpwatch stop collectstatic
 
+bpwatch start installgcc
+  sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+  sudo apt-get update
+  sudo apt-get -y install gcc-4.7 g++-4.7 gcc-4.7-base
+  sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.7 20
+  sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.7 20
+bpwatch stop installgcc
+
 # ### Finalize
 #
 
